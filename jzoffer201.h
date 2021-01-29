@@ -6,7 +6,7 @@ using namespace std;
 // The base must exist before 'e/E'.
 // ".1" and "3." are valid bases.
 // "." is not a valid base.
-// The exponent could be 0;
+// The exponent could be 0.
 // We have to ignore spaces before the number and after the number.
 // If spaces occur, no characters other than spaces are allowed to exist!
 
@@ -37,10 +37,10 @@ bool isNumber(string s)
 
     // Test the base.
     bool pointOccured = false;
-    bool needTestExpo = false;
     bool hasBase = false;
-    bool encounteredSpaces = false;
 
+    bool needTestExpo = false;
+    bool encounteredSpaces = false;
     char temp1;
     char temp2;
     while (i < sLen)
@@ -70,10 +70,6 @@ bool isNumber(string s)
         }
         else if (s[i] == 'e' || s[i] == 'E')
         {
-            if (!hasBase)
-            {
-                return false;
-            }
             needTestExpo = true;
             break;
         }
@@ -88,7 +84,10 @@ bool isNumber(string s)
             return false;
         }
     }
-
+    if (!hasBase)
+    {
+        return false;
+    }
     if (encounteredSpaces)
     {
         // Ignore spaces
@@ -101,7 +100,6 @@ bool isNumber(string s)
             ++i;
         }
     }
-
     if (i >= sLen && !needTestExpo)
     {
         return true;
@@ -138,15 +136,13 @@ bool isNumber(string s)
             return false;
         }
     }
-
     if (!hasExpo)
     {
         return false;
     }
-
-    // Ignore spaces
     while (i < sLen)
     {
+        // Ignore spaces
         if (s[i] != ' ')
         {
             return false;
