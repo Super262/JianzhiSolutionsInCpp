@@ -25,7 +25,7 @@ bool isSame(TreeNode *A, TreeNode *B)
     return isSame(A->left, B->left) && isSame(A->right, B->right);
 }
 
-bool findEntryAndTest(TreeNode *A, TreeNode *B)
+bool isSubStructure(TreeNode *A, TreeNode *B)
 {
     if (A && B)
     {
@@ -35,16 +35,11 @@ bool findEntryAndTest(TreeNode *A, TreeNode *B)
         }
         else
         {
-            return findEntryAndTest(A->left, B) || findEntryAndTest(A->right, B);
+            return isSubStructure(A->left, B) || isSubStructure(A->right, B);
         }
     }
     else
     {
         return false;
     }
-}
-
-bool isSubStructure(TreeNode *A, TreeNode *B)
-{
-    return findEntryAndTest(A, B);
 }
