@@ -1,15 +1,20 @@
 #include <vector>
 
-int findRepeatNumber(std::vector<int>& nums) {
-    bool* existed = new bool[nums.size()];
-    memset(existed, 0, sizeof(bool) * nums.size());
-    for(int num : nums){
-        if(existed[num]){
+using namespace std;
+
+int findRepeatNumber(std::vector<int> &nums)
+{
+    vector<bool> existed(nums.size(), false);
+    for (int num : nums)
+    {
+        if (existed[num])
+        {
             return num;
-        } else {
+        }
+        else
+        {
             existed[num] = true;
         }
     }
-    delete[] existed;
     return -1;
 }
