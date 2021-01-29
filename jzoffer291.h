@@ -14,7 +14,8 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
     {
         return vector<int>();
     }
-    vector<int> result;
+    vector<int> result(height * width);
+    int resultTop = -1;
 
     int xBottom = 0;
     int xTop = width - 1;
@@ -26,7 +27,7 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
     int direction = 1;
     while (x >= xBottom && x <= xTop && y >= yBottom && y <= yTop)
     {
-        result.emplace_back(matrix[y][x]);
+        result[++resultTop] = matrix[y][x];
         switch (direction)
         {
         case 1:
