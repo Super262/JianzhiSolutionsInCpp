@@ -2,16 +2,37 @@
 
 using namespace std;
 
-int search(vector<int> &nums, int target)
+int count(vector<int> &nums, const int start, const int end, const int target)
 {
-    int result = 0;
-    if (nums.size() == 0)
+    if (start >= end)
     {
-        return result;
+        return 0;
     }
-    for (int num : nums)
+    const int mid = start + (end - start) / 2;
+    int result = 0;
+    if (nums[mid] == target)
     {
-        result += num == target ? 1 : 0;
+        for (int i = mid; i >= 0; --i)
+        {
+            result += nums[i] == target ? 1 : 0;
+        }
+        for (int i = mid + 1; i < end; ++i)
+        {
+            result += nums[i] == target ? 1 : 0;
+        }
+    }
+    else if (nums[mid] > target)
+    {
+        return count(nums, start, mid, target);
+    }
+    else
+    {
+        return count(nums, mid + 1, end, target);
     }
     return result;
+}
+
+int search(vector<int> &nums, int target)
+{
+    return count(nums, 0, nums.size(), target);
 }
