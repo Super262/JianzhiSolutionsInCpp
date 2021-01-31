@@ -1,4 +1,4 @@
-#include <vector>
+#include <list>
 
 using namespace std;
 
@@ -10,7 +10,7 @@ struct TreeNode
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-bool getPath(TreeNode *root, TreeNode *target, vector<TreeNode *> &output)
+bool getPath(TreeNode *root, TreeNode *target, list<TreeNode *> &output)
 {
     if (!root)
     {
@@ -47,8 +47,8 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
         return nullptr;
     }
     TreeNode *firstSame = nullptr;
-    vector<TreeNode *> output1;
-    vector<TreeNode *> output2;
+    list<TreeNode *> output1;
+    list<TreeNode *> output2;
     getPath(root, p, output1);
     getPath(root, q, output2);
     while (!output1.empty() && !output2.empty() && output1.back() == output2.back())
