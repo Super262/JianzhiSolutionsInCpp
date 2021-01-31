@@ -21,14 +21,21 @@ bool getPath(TreeNode *root, TreeNode *target, list<TreeNode *> &output)
         output.emplace_back(root);
         return true;
     }
-    else
+    else if (root->val > target->val)
     {
         if (getPath(root->left, target, output))
         {
             output.emplace_back(root);
             return true;
         }
-        else if (getPath(root->right, target, output))
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if (getPath(root->right, target, output))
         {
             output.emplace_back(root);
             return true;
@@ -48,14 +55,17 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
     }
     TreeNode *firstSame = nullptr;
     list<TreeNode *> output1;
-    list<TreeNode *> output2;
     getPath(root, p, output1);
-    getPath(root, q, output2);
-    while (!output1.empty() && !output2.empty() && output1.back() == output2.back())
+    if (!output1.empty())
     {
-        firstSame = output1.back();
-        output1.pop_back();
-        output2.pop_back();
+        list<TreeNode *> output2;
+        getPath(root, q, output2);
+        while (!output1.empty() && !output2.empty() && output1.back() == output2.back())
+        {
+            firstSame = output1.back();
+            output1.pop_back();
+            output2.pop_back();
+        }
     }
     return firstSame;
 }
