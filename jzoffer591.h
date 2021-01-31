@@ -6,15 +6,15 @@ using namespace std;
 
 vector<int> maxSlidingWindow(vector<int> &nums, int k)
 {
-    queue<int> q;
+    deque<int> q;
     vector<int> result;
     for (int i = 0; i < k; ++i)
     {
-        while (!q.empty() && q.front() < nums[i])
+        while (!q.empty() && q.back() < nums[i])
         {
-            q.pop();
+            q.pop_back();
         }
-        q.emplace(nums[i]);
+        q.emplace_back(nums[i]);
     }
     if (!q.empty())
     {
@@ -28,24 +28,13 @@ vector<int> maxSlidingWindow(vector<int> &nums, int k)
         removedNum = nums[i - k];
         if (!q.empty() && removedNum == q.front())
         {
-            while (!q.empty())
-            {
-                q.pop();
-            }
-            for (int j = i - k + 1; j < i; ++j)
-            {
-                while (!q.empty() && q.front() < nums[j])
-                {
-                    q.pop();
-                }
-                q.emplace(nums[j]);
-            }
+            q.pop_front();
         }
-        while (!q.empty() && q.front() < nums[i])
+        while (!q.empty() && q.back() < nums[i])
         {
-            q.pop();
+            q.pop_back();
         }
-        q.emplace(nums[i]);
+        q.emplace_back(nums[i]);
         result.emplace_back(q.front());
     }
     return result;
